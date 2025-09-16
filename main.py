@@ -1,4 +1,3 @@
-
 import random
 
 def sortear_palavra(palavras):
@@ -42,31 +41,38 @@ def verificar_palavra(palavra_secreta, palavra_codificada, concluido):
     return concluido
 
 def jogar_forca():
-    novo_jogo = False
-    while not novo_jogo:
-        palavras = ["fortaleza", "marrocos", "guarana", "brasil"]
-        palavra_secreta = sortear_palavra(palavras)
-        palavra_codificada = codificar_palavra(palavra_secreta)
-        palpites = []
-        concluido = False
-        tentativas = 3
-        print(palavra_secreta)
+    palavras = ["fortaleza", "marrocos", "guarana", "brasil"]
+    palavra_secreta = sortear_palavra(palavras)
+    palavra_codificada = codificar_palavra(palavra_secreta)
+    palpites = []
+    concluido = False
+    tentativas = 3
+    print(palavra_secreta)
 
-        while tentativas >= 0 and not concluido:
-            if tentativas != 0:
-                exibir_status(palavra_codificada, palpites, tentativas)
-                chute = input("Digite uma letra: ")
-                tentativas = verificar_letra(chute, palpites, palavra_secreta, palavra_codificada, tentativas)
-                concluido = verificar_palavra(palavra_secreta, palavra_codificada,concluido)
-            else:
-                print(f"\nQue pena, Voce não conseguiu descobrir a palavra ({palavra_secreta})")
-                break
-                
+    while tentativas >= 0 and not concluido:
+        if tentativas != 0:
+            exibir_status(palavra_codificada, palpites, tentativas)
+            chute = input("Digite uma letra: ")
+            tentativas = verificar_letra(
+                chute, palpites, palavra_secreta, palavra_codificada, tentativas
+            )
+            concluido = verificar_palavra(
+                palavra_secreta, palavra_codificada, concluido
+            )
+        else:
+            print(
+                f"\nQue pena, Voce não conseguiu descobrir a palavra ({palavra_secreta})"
+            )
+            break
+
+def main():
+    novo_jogo = True
+    while novo_jogo:
+        jogar_forca()
         novo_jogo = input("\nVocê deseja iniciar um novo jogo? (s/n): ")
         if novo_jogo != "s":
-            novo_jogo = True
+            novo_jogo = False
             print("Saindo...")
-            break
-        else:
-            jogar_forca()
-jogar_forca()
+
+if __name__ == "__main__":
+    main()
